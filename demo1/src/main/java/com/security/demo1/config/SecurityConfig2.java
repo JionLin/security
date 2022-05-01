@@ -1,6 +1,7 @@
 package com.security.demo1.config;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -9,11 +10,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 /**
  * @author johnny
  * @Classname SecurityConfig
- * @Description security config
+ * @Description security config2 从数据库中进行查询
  * @Date 2022/5/1 19:11
  */
-//@Configuration
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+@Configuration
+public class SecurityConfig2 extends WebSecurityConfigurerAdapter {
 
 
     /**
