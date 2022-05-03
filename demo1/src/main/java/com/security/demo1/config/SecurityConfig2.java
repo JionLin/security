@@ -63,6 +63,8 @@ public class SecurityConfig2 extends WebSecurityConfigurerAdapter {
                 .and().authorizeRequests()
                 //设置可以直接访问，不需要认证
                 .antMatchers("/", "/test/hello", "/user/login").permitAll()
+//                .antMatchers("/test/has-role").hasAuthority("admin")
+                .antMatchers("/test/has-role").hasAnyAuthority("role")
                 .anyRequest().authenticated()
 //                // 关闭csrf防护
                 .and().csrf().disable();

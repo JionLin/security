@@ -16,16 +16,24 @@ public class HelloController {
 
 
     @GetMapping("hello")
-    public String hello(){
+    public String hello() {
         return "hello";
     }
+
     @GetMapping("index")
-    public String index(){
+    public String index() {
         return " index";
     }
 
     @GetMapping("logout")
-    public String logout(){
+    public String logout() {
         return " logout";
     }
+
+    @GetMapping("has-role")
+    public String hasRole() {
+        return " has-role";
+    }
+
+
 }

@@ -38,7 +38,9 @@ public class MyUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("用户名不存在！");
         }
 
-        List<GrantedAuthority> authorityList = AuthorityUtils.commaSeparatedStringToAuthorityList("admin");
+        // 含有admin权限和sale的角色
+        List<GrantedAuthority> authorityList = AuthorityUtils.
+                commaSeparatedStringToAuthorityList("admin,role,ROLE_sale");
         return new User(users.getUsername(),
                 new BCryptPasswordEncoder().encode(users.getPassword()),
                 authorityList);
