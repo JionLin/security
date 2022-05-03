@@ -90,7 +90,8 @@ public class SecurityConfig2 extends WebSecurityConfigurerAdapter {
 //                .antMatchers("/test/has-role").hasRole("sale")
                 // 记住我
                 .and().rememberMe().tokenRepository(persistentTokenRepository())
-                .tokenValiditySeconds(10 * 60)
+                // 秒
+                .tokenValiditySeconds(60)
                 .userDetailsService(userDetailsService)
 //                // 关闭csrf防护
                 .and().csrf().disable();

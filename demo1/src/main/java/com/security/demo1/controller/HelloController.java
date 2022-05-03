@@ -2,10 +2,7 @@ package com.security.demo1.controller;
 
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author johnny
@@ -45,11 +42,11 @@ public class HelloController {
     }
 
     /**
+     * @return java.lang.String
      * @Author johnny
-     * @Description  方法前的权限校验 权限和角色
+     * @Description 方法前的权限校验 权限和角色
      * @Date 15:15 2022/5/3
      * @Param []
-     * @return java.lang.String
      **/
     @RequestMapping("/pre-authorize")
     @ResponseBody
