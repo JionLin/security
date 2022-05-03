@@ -9,6 +9,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+
+import javax.sql.DataSource;
 
 /**
  * @author johnny
@@ -21,6 +25,18 @@ public class SecurityConfig2 extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserDetailsService userDetailsService;
+
+    @Autowired
+    private DataSource dataSource;
+
+    @Bean
+    public PersistentTokenRepository persistentTokenRepository() {
+        JdbcTokenRepositoryImpl jdbcTokenRepository = new
+                JdbcTokenRepositoryImpl();
+        // 赋值数据源
+        jdbcTokenRepository.setDataSource(dataSource);
+        return jdbcTokenRepository;
+    }
 
     /**
      * @return void
@@ -63,15 +79,19 @@ public class SecurityConfig2 extends WebSecurityConfigurerAdapter {
                 .and().authorizeRequests()
                 //设置可以直接访问，不需要认证
                 .antMatchers("/", "/test/hello", "/user/login").permitAll()
+                // 含有某个角色
+                .antMatchers("/test/has-role").hasAnyRole("sale")
+                .anyRequest().authenticated()
                 // 有某个权限
 //                .antMatchers("/test/has-role").hasAuthority("admin")
                 // 只需要有任意的一权限即可
 //                .antMatchers("/test/has-role").hasAnyAuthority("role")
                 // 有某个角色
 //                .antMatchers("/test/has-role").hasRole("sale")
-                // 含有某个角色
-                .antMatchers("/test/has-role").hasAnyRole("sale")
-                .anyRequest().authenticated()
+                // 记住我
+                .and().rememberMe().tokenRepository(persistentTokenRepository())
+                .tokenValiditySeconds(10 * 60)
+                .userDetailsService(userDetailsService)
 //                // 关闭csrf防护
                 .and().csrf().disable();
 
